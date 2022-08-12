@@ -1,0 +1,46 @@
+--Create a store_inventory database
+
+CREATE TABLE store_inventory (id integer primary key, brand text, type text, quantity integer, price integer);
+
+INSERT INTO store_inventory VALUES
+(1, 'mac', 'lip liner', 50, 20),
+(2, 'nars', 'concealer', 25, 28),
+(3, 'anastasia', 'eyebrow pencil', 80, 22),
+(4, 'glossier', 'cream blush', 30, 18),
+(5, 'charlotte', 'foundation', 45, 39),
+(6, 'charlotte', 'lipstick', 70, 30),
+(7, 'nars', 'lip gloss', 23, 28),
+(8, 'kosas', 'eyebrow mascara', 26, 15),
+(9, 'ilia beauty', 'bronzer', 16, 34),
+(10,'glossier', 'mascara', 30, 20),
+(11,'charlotte', 'contour', 27, 40),
+(12,'becca', 'highlighter', 29, 40),
+(13,'tarte', 'eyeshadow', 38, 45),
+(14,'stila', 'eyeliner', 50, 28),
+(15, 'laura mercier', 'powder', 15, 38)
+;
+
+--display the database order by price
+SELECT * FROM store_inventory
+ORDER BY price;
+
+--what is the brand including type that cost the most in this database?
+SELECT brand, type FROM store_inventory
+WHERE quantity <= 40 ORDER BY price;
+
+--what type of products are under the 'charlotte' brand in this database?
+SELECT type FROM store_inventory
+WHERE brand = 'charlotte';
+
+--display sum of all quantities in store_inventory database
+SELECT SUM(quantity) FROM store_inventory;
+
+--display brand that has the most quantity in this database
+SELECT brand, MAX(quantity) FROM store_inventory;
+
+--display volume of each type of product in this database
+SELECT type, CASE WHEN quantity > 50 THEN 'high volume'
+ELSE 'low volume' END AS 'volume' FROM store_inventory;
+
+--display sum of the prices in this database
+SELECT SUM(price) FROM store_inventory;

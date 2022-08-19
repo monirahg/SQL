@@ -212,20 +212,35 @@ INSERT INTO countries(name,population,percent_one_year_change,population_change,
 INSERT INTO countries(name,population,percent_one_year_change,population_change,density_per_sq_km,area_sq_km,net_migrants,fertility_rate,median_age,percent_of_world_pop) VALUES ('Seychelles',98347,0.62,608,214,460,-200,2.50,34.00,0);
 INSERT INTO countries(name,population,percent_one_year_change,population_change,density_per_sq_km,area_sq_km,net_migrants,fertility_rate,median_age,percent_of_world_pop) VALUES ('Antigua and Barbuda',97929,0.84,811,223,440,0,2.00,34.00,0);
 
--
+- display database
 SELECT * FROM countries;
+
+-display average median age for each country
 SELECT AVG(median_age) as avg_median FROM countries;
+
+- what is the average median age for each country grouped by name that are greater than 20?
 SELECT name, AVG(median_age) as avg_median_age FROM countries
 GROUP BY name HAVING avg_median_age > 20;
+
+- display max median age 
 SELECT name, MAX(median_age) as max_median_age FROM countries;
-SELECT name, MIN(median_age) as min_median_age FROM countries; 
+
+- display min median age
+SELECT name, MIN(median_age) as min_median_age FROM countries;
+
+- display average fertility rate 
 SELECT AVG(fertility_rate) as avg_fertility_rate FROM countries;
+
+- display name, fertility rate, population, for countries that have low, average, high fertility rate order by population
 SELECT name, fertility_rate, population,
     CASE
     WHEN fertility_rate > 3 THEN 'High'
     WHEN fertility_rate > 2 THEN 'Average'
     ELSE 'Low'
-    END as population_range
+    END as fertility_range
     FROM countries ORDER BY population;
+    
+- display name, median age, population and fertility rates for countries that have a median age for greater than 20 and population greater than 20000000 
+and fertility rate greater than 3
 SELECT name, median_age, population, fertility_rate FROM countries WHERE median_age > 20 AND population > 20000000 AND fertility_rate >3;
 

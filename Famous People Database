@@ -1,0 +1,97 @@
+CREATE TABLE famous_people (id INTEGER PRIMARY KEY, name TEXT, age INTEGER);
+    
+INSERT INTO famous_people VALUES
+(1, 'Taylor Swift', 32),
+(2, 'Johnny Depp', 59),
+(3, 'Joe Alwyn', 31),
+(4, 'Emily BLunt', 39),
+(5, 'John Krasinski', 42),
+(6, 'Nicole Kidman', 55),
+(7, 'Keith Urban', 54),
+(8, 'Hayley Williams', 33),
+(9, 'Blake Lively', 34),
+(10, 'Ryan Reynolds', 45),
+(11, 'Stephanie Meyers', 48),
+(12, 'JK Rowling', 57),
+(13, 'Delia Owens', 73),
+(14, 'Maggie Rogers', 28),
+(15, 'Camila Cabello', 25);
+
+CREATE TABLE works (id INTEGER PRIMARY KEY,
+    industry TEXT, 
+    project TEXT);
+    
+INSERT INTO works VALUES
+(1, 'music', 'Love Story'),
+(2, 'movies', 'Edward Scissorhands'),
+(3, 'movies', 'Conversations with friends'),
+(4, 'movies', 'Mary Poppins'),
+(5, 'movies', 'A Quiet Place'),
+(6, 'movies', 'Big Little Lies'),
+(7, 'music', 'Thats when'),
+(8, 'music', 'Fake Happy'),
+(9, 'movies', 'Sisterhood of the traveling pants'),
+(10, 'movies', 'Deadpool'), 
+(11, 'books', 'Twilight'),
+(12, 'books', 'Harry Potter'),
+(13, 'books', 'Where the Crawdad Sings'),
+(14, 'music', 'Alaska'),
+(15, 'music', 'Havana');
+
+
+CREATE TABLE partners (id INTEGER PRIMARY KEY,
+    partner1_id INTEGER, 
+    partner2_id INTEGER);
+    
+INSERT INTO partners VALUES 
+(1, 1, 3),
+(2, 4, 5),
+(3, 6, 7),
+(4, 9, 10);
+
+-- display name of famous people with their projects
+SELECT famous_people.name, works.project
+FROM famous_people
+LEFT OUTER JOIN works
+ON famous_people.id = works.id;
+
+-- display name, industry, and project of people but only those that are in the movie industry
+SELECT fp.name, w.industry, w.project
+FROM famous_people as fp
+LEFT OUTER JOIN works as w
+ON fp.id = w.id
+WHERE w.industry = 'movies';
+
+-- display names of famous people with their corresponding partners
+SELECT fp1.name, fp2.name
+FROM partners
+JOIN famous_people as fp1
+ON fp1.id = partners.partner1_id
+JOIN famous_people as fp2
+ON fp2.id = partners.partner2_id;
+
+-- display name, industry, project of people in the music industry only
+SELECT fp.name, w.industry, w.project
+FROM famous_people as fp
+LEFT OUTER JOIN works as w
+ON fp.id = w.id
+WHERE w.industry = 'music';
+
+-- display name, industry, project of people in the book industry only
+SELECT fp.name, w.industry, w.project
+FROM famous_people as fp
+JOIN works as w
+ON fp.id = w.id
+WHERE w.industry = 'books';
+
+-- display name, industry, project of people with their corresponding partners and industry
+SELECT fp1.name, fp2.name, w1.industry, w2.industry 
+FROM partners as p
+LEFT OUTER JOIN famous_people as fp1
+ON fp1.id = p.partner1_id
+LEFT OUTER JOIN works as w1
+ON fp1.id = w1.id
+LEFT OUTER JOIN famous_people as fp2
+ON fp2.id = p.partner2_id
+LEFT OUTER JOIN works as w2
+ON fp2.id = w2.id;

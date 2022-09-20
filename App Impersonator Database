@@ -1,0 +1,26 @@
+/* What does the app's SQL look like? */
+
+CREATE TABLE workout_app (
+    id INTEGER PRIMARY KEY,
+    username TEXT, 
+    date TEXT, 
+    type TEXT, 
+    duration INTEGER);
+    
+INSERT INTO workout_app (id, username, date, type, duration) VALUES
+    (1, 'a_mac', '2022-09-12', 'swimming', 60),
+    (2, 'a_mac', '2022-09-13', 'jogging', 30),
+    (3, 'a_mac', '2022-09-14', 'hot yoga', 60),
+    (4, 'a_mac', '2022-09-14', 'pilates', 45);
+    
+SELECT * FROM workout_app;
+
+UPDATE workout_app SET type = 'walking'
+WHERE type = 'jogging';
+
+SELECT * FROM workout_app;
+
+DELETE FROM workout_app 
+WHERE date = '2022-09-14' AND type = 'pilates';
+
+SELECT * FROM workout_app;
